@@ -1,0 +1,54 @@
+/* General Styles for Navbar */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #007bff; /* Blue background for the header */
+    padding: 10px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; /* Align items to left and right */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar-brand {
+    color: #fff; /* White text color for the brand */
+    font-size: 24px;
+}
+
+.nav-links {
+    display: flex; /* Ensures that the links are displayed in a row */
+    margin: 0;
+    padding: 0;
+    list-style: none; /* Remove default list styling */
+}
+
+.nav-links li {
+    margin-left: 20px; /* Space between links */
+}
+
+.nav-links li:first-child {
+    margin-left: 0; /* Remove left margin for the first link */
+}
+
+.nav-links a {
+    color: #fff; /* White text color for links */
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline; /* Underline text on hover */
+}
+
+.nav-links a:active {
+    text-decoration: underline; /* Underline text when clicked */
+}

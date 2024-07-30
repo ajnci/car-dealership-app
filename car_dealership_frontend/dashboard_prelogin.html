@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Prelogin</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('navbar_prelogin.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.body.insertAdjacentHTML('afterbegin', data);
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+        });
+    </script>
+    <main>
+        <h1>Car Listings</h1>
+        <section id="car-list">
+            <!-- Car listing will be dynamically added here by JavaScript -->
+        </section>
+    </main>
+    <script src="js/dashboard_prelogin.js"></script>
+</body>
+</html>

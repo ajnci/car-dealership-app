@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="css/search.css"> <!-- Updated to include search.css -->
+</head>
+<body>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('afterbegin', data);
+            });
+    </script>
+    <main>
+        <h1>Search Cars</h1>
+        <form id="search-form">
+            <div class="form-group">
+                <label for="search-query">Search:</label>
+                <input type="text" id="search-query" placeholder="Search Cars by Model" required>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+        <section id="search-results">
+            <!-- Search results will be dynamically added here by JavaScript -->
+        </section>
+    </main>
+    <script src="js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+Django
+rest_framework_simplejwt
+djangorestframework
+boto3
+django-storages
+psycopg2-binary
+django-cors-headers
+environ
+

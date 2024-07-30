@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('afterbegin', data);
+            });
+    </script>
+    
+    <main>
+        <h1>Car Listings</h1>
+        <section id="car-list">
+            <!-- Car listing will be dynamically added here by JavaScript -->
+        </section>
+    </main>
+
+    <!-- Confirmation notification -->
+    <div id="notification" class="notification">
+        <p id="notification-message">Are you sure you want to delete this car?</p>
+        <button id="confirm-delete">Yes, Delete</button>
+        <button id="cancel-delete">Cancel</button>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
