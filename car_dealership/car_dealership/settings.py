@@ -64,8 +64,8 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazo
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_REGION_NAME = os.getenv('AWS_REGION_NAME', 'eu-north-1')
-TOPICARN = os.getenv('TOPICARN', '')
-SQSURL = os.getenv('SQSURL', '')
+TOPICARN = os.getenv('TOPICARN', 'arn:aws:sns:eu-north-1:211125437162:topictest')
+SQSURL = os.getenv('SQSURL', 'https://sqs.eu-north-1.amazonaws.com/211125437162/testqueue')
 SUBSCRIBERS_TABLE_NAME = os.getenv('SUBSCRIBERS_TABLE_NAME', 'subscribers')
 
 MIDDLEWARE = [
