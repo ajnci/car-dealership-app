@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const fullOrigin = window.location.origin;
+    const apiUrl = fullOrigin.split(':').slice(0, 2).join(':');
     const updateForm = document.getElementById('update-car-form');
     const carId = new URLSearchParams(window.location.search).get('id');
 
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.forEach((value, key) => formObject[key] = value);
         formObject.id = carId;
 
-        const updateUrl = 'http://13.53.139.82:8000/api/car/update/'; // Remove the ID from the URL
+        const updateUrl = `${apiUrl}:8000/api/car/update/`; // Remove the ID from the URL
 
         fetch(updateUrl, {
             method: 'PUT',

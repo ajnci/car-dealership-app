@@ -4,6 +4,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import MyTokenObtainPairSerializer, UserSerializer, UserCreateSerializer
+from car_dealership.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION_NAME, TOPICARN
+import boto3
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -53,3 +55,47 @@ class LogoutView(generics.GenericAPIView):
             except Exception as e:
                 return Response({"detail": str(e)}, status=400)
         return Response({"detail": "Refresh token not provided."}, status=400)
+
+class SubscribeView(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        # Implement subscription logic here
+        email = request.data.get('email')
+        if email:
+            # Initialize DynamoDB resource with in-line access key and secret key
+            dynamodb = boto3.resource(
+                'dynamodb',
+                region_name=AWS_REGION_NAME,
+                aws_access_key_id=AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+            )
+            
+            # Specify the table to interact with
+            table = dynamodb.Table('subscribersemail')
+            ses = boto3.client(
+                'ses',
+                region_name=AWS_REGION_NAME,
+                aws_access_key_id=AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+            )
+            # Add the email item to the DynamoDB table
+            table.put_item(Item={'email': email})
+
+            response = ses.verify_email_identity(
+                EmailAddress=email
+            )
+            
+            sns = boto3.client(
+                'sns',
+                region_name=AWS_REGION_NAME,
+                aws_access_key_id=AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+            )
+
+            sns.publish(
+                TopicArn=TOPICARN,
+                Message=email,
+                Subject='Subscription Notification'
+            )
+        return Response({f'Verification email sent to {email}'}, status=200)

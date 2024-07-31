@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const fullOrigin = window.location.origin;
+    const apiUrl = fullOrigin.split(':').slice(0, 2).join(':');
     const signupForm = document.getElementById('signup-form');
     const signinForm = document.getElementById('signin-form');
 
@@ -16,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Perform the signup API call
-            fetch('http://13.53.139.82:8000/api/users/register/', {
+            fetch(`${apiUrl}:8000/api/users/register/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Perform the signin API call
-            fetch('http://13.53.139.82:8000/api/users/login/', {
+            fetch(`${apiUrl}:8000/api/users/login/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar Prelogin</title>
     <link rel="stylesheet" href="css/navbar_prelogin.css">
 </head>
+
 <body>
     <header>
         <nav>
@@ -19,5 +21,33 @@
             </div>
         </nav>
     </header>
+
+    <!-- <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('afterbegin', data);
+            });
+    </script> -->
+    <main>
+        <form id="subscribe-form">
+            <div class="form-group">
+                <label for="email-input">Subscribe for the latest listings</label>
+                <input type="email" id="email-input" placeholder="Write your email:" required>
+            </div>
+            <button type="submit">Subscribe</button>
+        </form>
+        <section id="response-message">
+            <!-- Response message will be dynamically added here by JavaScript -->
+        </section>
+    </main>
 </body>
+
+</html>
+
+
+<!-- External JS File -->
+<script src="js/subscribe.js"></script>
+</body>
+
 </html>

@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const fullOrigin = window.location.origin;
+    const apiUrl = fullOrigin.split(':').slice(0, 2).join(':');
     const profileForm = document.getElementById('profile-form');
     const logoutButton = document.getElementById('logout-button');
 
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Fetch user profile data from the API
-    fetch('http://13.53.139.82:8000/api/users/profile/', {
+    fetch(`${apiUrl}:8000/api/users/profile/`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`,
@@ -59,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Update the profile via the API
-        fetch('http://13.53.139.82:8000/api/users/profile/', {
+        fetch(`${apiUrl}:8000/api/users/profile/`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -90,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('http://13.53.139.82:8000/api/users/logout/', {
+        fetch(`${apiUrl}:8000/api/users/logout/`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,

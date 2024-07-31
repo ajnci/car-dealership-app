@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 #             return Response(serializer.data)
 
 class CarAPIView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get(self, request, *args, **kwargs):
         car_id = request.query_params.get('id', None)

@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const fullOrigin = window.location.origin;
+    const apiUrl = fullOrigin.split(':').slice(0, 2).join(':');
     const carListContainer = document.getElementById('car-list');
     const notification = document.getElementById('notification');
     const confirmDeleteButton = document.getElementById('confirm-delete');
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch and display cars
     function fetchCars() {
-        fetch('http://13.53.139.82:8000/api/car/get/', {
+        fetch(`${apiUrl}:8000/api/car/get/`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (confirmDeleteButton) {
         confirmDeleteButton.addEventListener('click', () => {
             if (deleteCarId) {
-                fetch('http://13.53.139.82:8000/api/car/delete/', {
+                fetch(`${apiUrl}:8000/api/car/delete/`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
@@ -120,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addCar(formData) {
-        fetch('http://13.53.139.82:8000/api/car/add/', {
+        fetch(`${apiUrl}:8000/api/car/add/`, {
             method: 'POST',
             body: formData,
             headers: {

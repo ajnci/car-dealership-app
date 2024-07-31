@@ -49,3 +49,63 @@ nav {
 .navbar-links a:active {
     text-decoration: underline; /* Underline text when clicked */
 }
+
+/* Styles for the Subscribe Button */
+#subscribe-btn {
+    display: inline-block; /* Ensure the button is displayed */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff0000; /* Red background color */
+    color: white; /* White text color */
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Optional: add rounded corners */
+    margin-left: 20px; /* Adjust spacing if necessary */
+}
+
+#subscribe-btn:hover {
+    background-color: #cc0000; /* Darker shade of red on hover */
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Additional Utility Styles (optional) */
+.hidden {
+    display: none !important;
+}

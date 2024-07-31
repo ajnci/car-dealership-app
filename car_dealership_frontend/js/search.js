@@ -1,6 +1,7 @@
 document.getElementById('search-form').addEventListener('submit', function (e) {
     e.preventDefault();
-
+    const fullOrigin = window.location.origin;
+    const apiUrl = fullOrigin.split(':').slice(0, 2).join(':');
     const query = document.getElementById('search-query').value.trim();
     const searchResults = document.getElementById('search-results');
 
@@ -12,7 +13,7 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
         return;
     }
 
-    const url = `http://13.53.139.82:8000/api/car/get/?model=${encodeURIComponent(query)}`;
+    const url = `${apiUrl}:8000/api/car/get/?model=${encodeURIComponent(query)}`;
 
 
     fetch(url, {

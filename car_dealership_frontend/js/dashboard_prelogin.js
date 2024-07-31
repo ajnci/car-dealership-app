@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const fullOrigin = window.location.origin;
+    const apiUrl = fullOrigin.split(':').slice(0, 2).join(':');
     const carListContainer = document.getElementById('car-list');
 
     // Fetch and display cars from the API
     function fetchCars() {
-        fetch('http://13.53.139.82:8000/api/car/get/', {
+        fetch(`${apiUrl}:8000/api/car/get/`, {
         })
         .then(response => response.json())
         .then(data => displayCars(data))
