@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Perform the signup API call
-            fetch('http://127.0.0.1:8000/api/users/register/', {
+            fetch('http://13.53.139.82:8000/api/users/register/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Perform the signin API call
-            fetch('http://127.0.0.1:8000/api/users/login/', {
+            fetch('http://13.53.139.82:8000/api/users/login/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

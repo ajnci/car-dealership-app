@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.forEach((value, key) => formObject[key] = value);
         formObject.id = carId;
 
-        const updateUrl = 'http://127.0.0.1:8000/api/car/update/'; // Remove the ID from the URL
+        const updateUrl = 'http://13.53.139.82:8000/api/car/update/'; // Remove the ID from the URL
 
         fetch(updateUrl, {
             method: 'PUT',

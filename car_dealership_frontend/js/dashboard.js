@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch and display cars
     function fetchCars() {
-        fetch('http://127.0.0.1:8000/api/car/get/', {
+        fetch('http://13.53.139.82:8000/api/car/get/', {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (confirmDeleteButton) {
         confirmDeleteButton.addEventListener('click', () => {
             if (deleteCarId) {
-                fetch('http://127.0.0.1:8000/api/car/delete/', {
+                fetch('http://13.53.139.82:8000/api/car/delete/', {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addCar(formData) {
-        fetch('http://127.0.0.1:8000/api/car/add/', {
+        fetch('http://13.53.139.82:8000/api/car/add/', {
             method: 'POST',
             body: formData,
             headers: {

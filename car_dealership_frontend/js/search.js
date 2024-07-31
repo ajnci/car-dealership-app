@@ -12,7 +12,7 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
         return;
     }
 
-    const url = `http://127.0.0.1:8000/api/car/get/?model=${encodeURIComponent(query)}`;
+    const url = `http://13.53.139.82:8000/api/car/get/?model=${encodeURIComponent(query)}`;
 
 
     fetch(url, {

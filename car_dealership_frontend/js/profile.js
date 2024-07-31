@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Fetch user profile data from the API
-    fetch('http://127.0.0.1:8000/api/users/profile/', {
+    fetch('http://13.53.139.82:8000/api/users/profile/', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`,
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Update the profile via the API
-        fetch('http://127.0.0.1:8000/api/users/profile/', {
+        fetch('http://13.53.139.82:8000/api/users/profile/', {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('http://127.0.0.1:8000/api/users/logout/', {
+        fetch('http://13.53.139.82:8000/api/users/logout/', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,

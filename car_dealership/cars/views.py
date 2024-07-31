@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 #             return Response(serializer.data)
 
 class CarAPIView(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         car_id = request.query_params.get('id', None)
@@ -63,8 +63,23 @@ class CarAPIView(APIView):
             serializer = CarSerializer(cars, many=True)
             return Response(serializer.data)
 
+    def delete(self, request, *args, **kwargs):
+        car_id = request.data.get('id', None)
+        if not car_id:
+            return Response({"detail": "ID not provided."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            car = Car.objects.get(id=car_id)
+            car.delete()
+            return Response({"details":"Success"}, status=200)
+        except Car.DoesNotExist:
+            return Response({'detail': 'Car not found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            logger.error(f"Error deleting car: {e}")
+            return Response({'detail': 'Error deleting car.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
+class CarUpdateView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     def put(self, request, *args, **kwargs):
         car_id = request.data.get('id', None)
         if not car_id:
@@ -76,17 +91,18 @@ class CarAPIView(APIView):
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
         # Update car data
-        serializer = CarSerializer(car, data=request.data, partial=True)  # Use partial=True to allow partial updates
-        if serializer.is_valid():
-            # Handle file upload if a file is provided
-            image_file = request.FILES.get('image')
-            if image_file:
-                car.image = image_file
-                car.save()
-
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        car_data = request.data
+        for field in ['name', 'model', 'year']:  # Add other fields as needed
+            if field in car_data:
+                setattr(car, field, car_data[field])
+        
+        # Handle file upload if a file is provided
+        image_file = request.FILES.get('car-image')
+        if image_file:
+            car.image = image_file
+        
+        car.save()
+        return Response({"detail": "Success"}, status=200)
 
         # Check if the car already exists
         # car, created = Car.objects.update_or_create(id=ids,
@@ -102,22 +118,35 @@ class CarAPIView(APIView):
         # else:
         #     # Existing car was updated
         #     return Response({"detail": "Success"}, status=status.HTTP_200_OK)
+class CarAddView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        car_data = request.data
+        required_fields = ['make', 'model', 'year']  # Adjust to match the form data field names
 
+        # Check if all required fields are provided
+        for field in required_fields:
+            if field not in car_data:
+                return Response({"detail": f"'{field}' is required."}, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, *args, **kwargs):
-        car_id = request.data.get('id', None)
-        if not car_id:
-            return Response({"detail": "ID not provided."}, status=status.HTTP_400_BAD_REQUEST)
+        # Create Car instance
+        car = Car(
+            make=car_data.get('make'),
+            model=car_data.get('model'),
+            year=car_data.get('year')
+        )
+
+        # Handle file upload if a file is provided
+        image_file = request.FILES.get('car-image')  # Use the correct field name for the file
+        if image_file:
+            car.image = image_file
         
-        try:
-            car = Car.objects.get(id=car_id)
-            car.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except Car.DoesNotExist:
-            return Response({'detail': 'Car not found.'}, status=status.HTTP_404_NOT_FOUND)
-        except Exception as e:
-            logger.error(f"Error deleting car: {e}")
-            return Response({'detail': 'Error deleting car.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        car.save()
+        
+        # Return the newly created car details
+
+        return Response({"detail":"Success"}, status=201)
+
         
 # class GetCar(APIView):
 #     def get(self, request, *args, **kwargs):
@@ -130,4 +159,25 @@ class CarAPIView(APIView):
 #             return Response(serializer.data)
 #         except Car.DoesNotExist:
 #             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+# class GetCar(APIView):
+    # def get(self, request, *args, **kwargs):
+    #     car_id = request.query_params.get('id', None)
+    #     car_model = request.query_params.get('model', None)
 
+    #     if car_id:
+    #         try:
+    #             car = Car.objects.get(id=car_id)
+    #             serializer = CarSerializer(car)
+    #             return Response(serializer.data)
+    #         except Car.DoesNotExist:
+    #             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+    #     elif car_model:
+    #         cars = Car.objects.filter(model__icontains=car_model)  # Case-insensitive search
+    #         serializer = CarSerializer(cars, many=True)
+    #         return Response(serializer.data)
+        
+    #     else:
+    #         cars = Car.objects.all()
+    #         serializer = CarSerializer(cars, many=True)
+    #         return Response(serializer.data)

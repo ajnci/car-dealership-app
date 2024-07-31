@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch and display cars from the API
     function fetchCars() {
-        fetch('http://127.0.0.1:8000/api/car/get/', {
+        fetch('http://13.53.139.82:8000/api/car/get/', {
         })
         .then(response => response.json())
         .then(data => displayCars(data))
