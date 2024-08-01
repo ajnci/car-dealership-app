@@ -6,7 +6,8 @@ from .models import Car
 from django.shortcuts import render
 from .serializers import CarSerializer
 import logging
-
+from car_dealership.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION_NAME, TOPICARN
+import boto3
 logger = logging.getLogger(__name__)
 
 # class CarAPIView(APIView):
@@ -142,6 +143,18 @@ class CarAddView(APIView):
             car.image = image_file
         
         car.save()
+        sns = boto3.client(
+            'sns',
+            region_name=AWS_REGION_NAME,
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+        )
+
+        sns.publish(
+            TopicArn=TOPICARN,
+            Message="email",
+            Subject='Subscription Notification'
+        )
         
         # Return the newly created car details
 

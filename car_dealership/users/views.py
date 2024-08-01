@@ -86,16 +86,5 @@ class SubscribeView(generics.GenericAPIView):
                 EmailAddress=email
             )
             
-            sns = boto3.client(
-                'sns',
-                region_name=AWS_REGION_NAME,
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY
-            )
 
-            sns.publish(
-                TopicArn=TOPICARN,
-                Message=email,
-                Subject='Subscription Notification'
-            )
         return Response({f'Verification email sent to {email}'}, status=200)
